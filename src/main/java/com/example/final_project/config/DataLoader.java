@@ -20,6 +20,15 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
+        if (userRepository.findByUsername("user").isEmpty()) {
+            User user = new User();
+            user.setUsername("user");
+            user.setPassword(passwordEncoder.encode("user123"));
+            user.setRole(Role.ROLE_USER);
+            userRepository.save(user);
+            System.out.println("User created: user / user123");
+        }
+
         if (userRepository.findByUsername("admin").isEmpty()) {
             User admin = new User();
             admin.setUsername("admin");
@@ -29,7 +38,6 @@ public class DataLoader implements CommandLineRunner {
             System.out.println("Admin created: admin / admin123");
         }
 
-    
         if (userRepository.findByUsername("manager").isEmpty()) {
             User manager = new User();
             manager.setUsername("manager");

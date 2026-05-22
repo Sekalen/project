@@ -18,6 +18,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    // --- ЧТЕНИЕ (доступно всем ролям) ---
     @GetMapping
     @Operation(summary = "Get all products")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
@@ -32,6 +33,7 @@ public class ProductController {
         return productService.getById(id);
     }
 
+    // --- СОЗДАНИЕ (только Менеджер и Админ) ---
     @PostMapping
     @Operation(summary = "Create a new product")
     @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
@@ -39,6 +41,7 @@ public class ProductController {
         return productService.create(product);
     }
 
+    // --- ОБНОВЛЕНИЕ (только Менеджер и Админ) ---
     @PutMapping("/{id}")
     @Operation(summary = "Update a product")
     @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
@@ -46,6 +49,7 @@ public class ProductController {
         return productService.update(id, product);
     }
 
+    // --- УДАЛЕНИЕ (только Админ) ---
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a product")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
