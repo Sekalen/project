@@ -31,7 +31,7 @@ public class ProductService {
     public Product create(Product product) {
         Product saved = productRepository.save(product);
         log.info("Создан продукт: {}", saved.getName());
-        telegramBot.sendMessage("✅ Новый продукт: " + saved.getName());
+        // telegramBot.sendMessage("✅ Новый продукт: " + saved.getName());//
         return saved;
     }
 
@@ -42,7 +42,7 @@ public class ProductService {
         existing.setQuantity(product.getQuantity());
         existing.setDescription(product.getDescription());
         log.info("Обновлён продукт: {}", existing.getName());
-        telegramBot.sendMessage("📝 Обновлён продукт: " + existing.getName());
+        //telegramBot.sendMessage("📝 Обновлён продукт: " + existing.getName());//
         return productRepository.save(existing);
     }
 
@@ -50,6 +50,6 @@ public class ProductService {
         Product product = getById(id);
         productRepository.deleteById(id);
         log.info("Удалён продукт: {}", product.getName());
-        telegramBot.sendMessage("🗑️ Удалён продукт: " + product.getName());
+        //telegramBot.sendMessage("🗑️ Удалён продукт: " + product.getName());//
     }
 }

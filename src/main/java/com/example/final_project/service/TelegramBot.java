@@ -19,8 +19,9 @@ public class TelegramBot extends TelegramLongPollingBot {
     @Value("${telegram.bot.username}")
     private String botUsername;
 
-    private final String MY_CHAT_ID = "1230068103"; // Ваш ID из @userinfobot
+    private final String MY_CHAT_ID = "1230068103"; 
 
+    // Регистрируем бота при запуске
     @PostConstruct
     public void init() {
         try {
@@ -28,20 +29,16 @@ public class TelegramBot extends TelegramLongPollingBot {
             botsApi.registerBot(this);
             System.out.println("✅ Telegram bot successfully registered!");
         } catch (TelegramApiException e) {
-            System.out.println("❌ Error registering Telegram bot: " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("❌ Error registering Telegram bot: " + e.getMessage());
         }
     }
 
     @Override
     public void onUpdateReceived(Update update) {
-        System.out.println("📩 Получено обновление от Telegram: " + update);
-
+        // Обрабатываем входящие сообщения
         if (update.hasMessage() && update.getMessage().hasText()) {
             String text = update.getMessage().getText();
             String chatId = update.getMessage().getChatId().toString();
-            
-            System.out.println("💬 Сообщение: '" + text + "' от " + chatId);
 
             if (text.equals("/start")) {
                 sendMessage(chatId, "Привет! Я бот для финального проекта.");
@@ -51,10 +48,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
 
-    public void sendMessage(String text) {
-        sendMessage(MY_CHAT_ID, text);
-    }
-
+    // Метод для отправки сообщения в конкретный чат
     public void sendMessage(String chatId, String text) {
         SendMessage message = new SendMessage(chatId, text);
         try {
@@ -62,8 +56,12 @@ public class TelegramBot extends TelegramLongPollingBot {
             System.out.println("✅ Сообщение отправлено в " + chatId + ": " + text);
         } catch (TelegramApiException e) {
             System.err.println("❌ Ошибка отправки сообщения: " + e.getMessage());
-            e.printStackTrace();
         }
+    }
+
+    // Метод для отправки сообщения тебе (по умолчанию)
+    public void sendMessage(String text) {
+        sendMessage(MY_CHAT_ID, text);
     }
 
     @Override
