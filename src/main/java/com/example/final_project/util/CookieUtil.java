@@ -20,7 +20,7 @@ public class CookieUtil {
                 .httpOnly(true)
                 .secure(false)  
                 .path("/")
-                .sameSite("None")
+                //.sameSite("None")
                 .build();
     }
 
@@ -30,7 +30,7 @@ public class CookieUtil {
                 .httpOnly(true)
                 .secure(false)  
                 .path("/")
-                .sameSite("None")
+                //.sameSite("None")
                 .build();
     }
 

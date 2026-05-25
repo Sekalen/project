@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "time_entries")
 @Data
@@ -15,6 +17,7 @@ public class TimeEntry {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
+    @JsonIgnore
     private Student student;
 
     @Enumerated(EnumType.STRING)
@@ -26,5 +29,5 @@ public class TimeEntry {
 
     private LocalDateTime endTime;
 
-    private boolean isBillable;
+    private Boolean isBillable = true;  
 }
