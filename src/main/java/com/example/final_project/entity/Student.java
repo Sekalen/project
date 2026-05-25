@@ -2,22 +2,21 @@ package com.example.final_project.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.util.List;
 
 @Entity
-@Table(name = "products")
+@Table(name = "students")
 @Data
-public class Product {
+public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String name;
 
-    private Double price;
+    private String groupName;  // вместо group
 
-    private Integer quantity;
-
-    private String description;
+    @OneToMany(mappedBy = "student")
+    private List<TimeEntry> recentEntries;
 }
